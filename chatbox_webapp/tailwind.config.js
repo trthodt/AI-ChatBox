@@ -3,7 +3,11 @@ export default {
   purge: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
   content: [],
   theme: {
-    extend: {},
+    extend: {
+      height: {
+        'screen-minus-navbar': 'calc(100vh - 2rem)',
+      },
+    },
   },
   plugins: [],
 }
