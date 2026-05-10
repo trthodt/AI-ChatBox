@@ -17,7 +17,7 @@ def connect():
   except Exception as e:
     print(e.__class__)
     print(e)
-    exception_handler(e)
+    raise e
 
 
 def get_db():
@@ -25,6 +25,6 @@ def get_db():
     db = SessionLocal()
     yield db
   except Exception as e:
-    exception_handler(e)
+    raise e
   finally:
     db.close()
