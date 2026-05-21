@@ -11,10 +11,13 @@
         type="text"
         placeholder="Type a message..."
         class="flex-1 bg-transparent outline-none"
+        v-model="input"
+        @keyup.enter="handleSend"
       />
 
       <button
         class="rounded-full bg-blue-500 p-2 text-white hover:bg-blue-600"
+        @click="handleSend"
       >
         ➤
       </button>
@@ -22,4 +25,19 @@
   </div>
 </template>
 <script setup>
+import { ref } from 'vue';
+
+const props = defineProps({
+  sendMessage: Function,
+});
+
+const input = ref("")
+const handleSend = () => {
+  if (!input.value.trim()) return;
+
+  props.sendMessage(input.value);
+
+  input.value = "";
+};
+
 </script>
