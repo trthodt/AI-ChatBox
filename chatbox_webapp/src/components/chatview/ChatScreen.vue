@@ -11,15 +11,32 @@
 import { ref } from 'vue';
 import MessageInput from './chat-input/MessageInput.vue';
 import MessageList from './message/MessageList.vue';
+import { chatServices } from '@/services/chat.service';
 
-const sendMessage = (text) => {
+const sendMessage = async (text) => {
   messages.value.push({
     id: Date.now(),
     text: text,
     isMine: true,
     createdAt: new Date().toLocaleTimeString(),
   });
+  await handleSend(text);
 };
+
+const handleSend = async (text) => {
+    try {
+        const response = await chatServices.sendMessage(text)
+        messages.value.push({
+            id: Date.now(),
+            text: response,
+            isMine: false,
+            createdAt: new Date().toLocaleTimeString(),
+        });
+        console.log(response)
+    } catch (error) {
+        console.log('Send message failed: ', error)
+    }
+}
 
 const messages = ref([
   {
