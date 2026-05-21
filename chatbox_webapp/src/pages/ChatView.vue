@@ -5,6 +5,7 @@
     </div>
 </template>
 <script setup>
-import ChatList from './chatview/ChatList.vue'
-import ChatScreen from './chatview/ChatScreen.vue'
+import ChatList from '@/components/chatview/ChatList.vue';
+import ChatScreen from '@/components/chatview/ChatScreen.vue';
+
 </script>
