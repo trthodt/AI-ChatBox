@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.routers import chatbox_router
 from app.core.database import connect
 from app.models.user import User
+from app.models.chatbox import ChatHistory, Chat
 
 app = FastAPI()
 
