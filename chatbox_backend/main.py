@@ -2,14 +2,14 @@ from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from app.routers import chatbox_router
 from app.core.database import connect
-from app.schemas.user import User
+from app.models.user import User
 
 app = FastAPI()
 
 origin = [
-  'http://localhost:5173/*', 
-  'http://localhost:3000/*', 
-  'http://localhost:8000/*'
+  'http://localhost:5173', 
+  'http://localhost:3000', 
+  'http://localhost:8000',
 ]
 app.add_middleware(
   CORSMiddleware,
