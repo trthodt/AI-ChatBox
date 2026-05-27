@@ -1,15 +1,19 @@
+from fastapi import HTTPException, status
 from sqlalchemy.orm import Session
 from google import genai
 from app.core.setting import settings
+from app.crud.chatbox import ChatboxRepository
 
 class ChatboxService():
 
   client: genai.Client
+  chatbox_repository: ChatboxRepository
 
   def __init__(self):
     try:
       api_key = settings.API_KEY
       self.client = genai.Client(api_key=api_key)
+      self.chatbox_repository = ChatboxRepository()
     except Exception as e:
       print(e.__class__)
       print(e)
@@ -29,3 +33,16 @@ class ChatboxService():
       print(e.__class__)
       print(e)
       raise e
+  
+  def create_chat_history(self, user_id: str, chat_title: str, db: Session):
+
+    new_history = self.chatbox_repository.create_chat_history(user_id, chat_title, db)
+    return new_history
+
+  def get_history_by_id(self, history_id: str, user_id: str, db: Session):
+    history = self.chatbox_repository.get_history_by_id(history_id, user_id, db)
+
+    if not history:
+      return None
+    
+    return history

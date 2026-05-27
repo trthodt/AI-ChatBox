@@ -8,22 +8,23 @@ class ChatHistory(Base):
 
   __tablename__ = "chat_history"
 
-  id = Column(String, primary_key=True, index=True, default=str(uuid.uuid4()))
+  id = Column(String, primary_key=True, index=True, default=lambda: str(uuid.uuid4()))
   user_id = Column(String)
-  is_deleted = Column(Boolean, default=False)
-  created_at = Column(String, default=str(int(datetime.now(timezone.utc).timestamp())))
-  updated_at = Column(String, default=str(int(datetime.now(timezone.utc).timestamp())))
+  is_deleted = Column(Boolean, default=lambda: False)
+  title = Column(String, default=lambda: 'Title not set')
+  created_at = Column(String, default=lambda: str(int(datetime.now(timezone.utc).timestamp())))
+  updated_at = Column(String, default=lambda: str(int(datetime.now(timezone.utc).timestamp())))
 
 
 class Chat(Base):
 
   __tablename__ = "chat"
 
-  id = Column(String, primary_key=True, index=True, default=str(uuid.uuid4()))
+  id = Column(String, primary_key=True, index=True,default= lambda: str(uuid.uuid4()))
   history_id = Column(String)
-  is_deleted = Column(Boolean, default=False)
+  is_deleted = Column(Boolean, default=lambda: False)
   is_user_chat = Column(Boolean)
   is_send_success = Column(Boolean)
   chat_content = Column(String)
-  created_at = Column(String, default=str(int(datetime.now(timezone.utc).timestamp())))
-  updated_at = Column(String, default=str(int(datetime.now(timezone.utc).timestamp())))
+  created_at = Column(String, default=lambda: str(int(datetime.now(timezone.utc).timestamp())))
+  updated_at = Column(String, default=lambda: str(int(datetime.now(timezone.utc).timestamp())))
