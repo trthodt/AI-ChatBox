@@ -13,6 +13,7 @@ Base = declarative_base()
 
 def connect():
   try:
+    # Base.metadata.drop_all(bind=engine)
     Base.metadata.create_all(bind=engine)
   except Exception as e:
     print(e.__class__)
