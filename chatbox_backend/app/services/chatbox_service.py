@@ -51,3 +51,11 @@ class ChatboxService():
   def create_new_chat(self, history_id: str, is_user: bool, chat_content: str, db: Session) -> Chat:
 
     self.chatbox_repository.create_new_chat(history_id, is_user=is_user, content=chat_content, db=db)
+
+  def get_history_list(self, user_id: str, db: Session):
+    
+    return self.chatbox_repository.get_chat_history_list(user_id, db)
+  
+  def get_chats(self, history_id: str, db: Session):
+
+    return self.chatbox_repository.get_chats(history_id, db)

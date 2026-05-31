@@ -45,6 +45,8 @@ class AuthService():
       )
     
     request.session['user_id'] = existed_user.id
+    # set server-checkable expiry (1 hour)
+    request.session['expires_at'] = int(datetime.now(timezone.utc).timestamp()) + 3600
     return LoginResponse(
       username=existed_user.username,
       login_at=str(int(datetime.now(timezone.utc).timestamp())),
