@@ -41,3 +41,25 @@ class ChatboxRepository():
     db.add(chat)
     db.commit()
     return chat
+  
+  def get_chat_history_list(self, user_id: str, db: Session):
+
+    history_list = (
+      db
+        .query(ChatHistory)
+        .filter(ChatHistory.user_id == user_id)
+        .all()
+    )
+
+    return history_list
+
+  def get_chats(self, history_id: str, db: Session):
+
+    chats = (
+      db
+        .query(Chat)
+        .filter(Chat.history_id == history_id)
+        .all()
+    )
+
+    return chats

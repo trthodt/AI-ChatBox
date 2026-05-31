@@ -51,3 +51,32 @@ def chat(request: Request, req: ChatBoxRequest, db: Session = Depends(get_db)) -
       )
   except Exception as e:
     raise exception_handler(e)
+
+@router.get('/historys/{user_id}')
+def get_historys(request: Request ,user_id: str, db: Session = Depends(get_db)):
+
+  # check login session
+  current_user_id = request.session.get('user_id')
+  if not current_user_id:
+    raise HTTPException(
+      status_code=status.HTTP_401_UNAUTHORIZED,
+      detail={'success': False, 'message': 'Unauthorized'}
+    )
+    
+  chatbox = ChatboxService()
+
+  return chatbox.get_history_list(user_id=user_id, db=db)
+
+@router.get('/chats/{history_id}')
+def get_chats(request: Request, history_id: str, db: Session = Depends(get_db)):
+
+  # check login session
+  current_user_id = request.session.get('user_id')
+  if not current_user_id:
+    raise HTTPException(
+      status_code=status.HTTP_401_UNAUTHORIZED,
+      detail={'success': False, 'message': 'Unauthorized'}
+    )
+    
+  chatbox = ChatboxService()
+  return chatbox.get_chats(history_id=history_id, db=db)
