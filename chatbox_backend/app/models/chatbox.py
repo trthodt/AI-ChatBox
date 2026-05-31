@@ -24,7 +24,7 @@ class Chat(Base):
   history_id = Column(String)
   is_deleted = Column(Boolean, default=lambda: False)
   is_user_chat = Column(Boolean)
-  is_send_success = Column(Boolean)
+  is_send_success = Column(Boolean, default=True)
   chat_content = Column(String)
   created_at = Column(String, default=lambda: str(int(datetime.now(timezone.utc).timestamp())))
   updated_at = Column(String, default=lambda: str(int(datetime.now(timezone.utc).timestamp())))

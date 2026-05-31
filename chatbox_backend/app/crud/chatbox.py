@@ -28,3 +28,16 @@ class ChatboxRepository():
     db.commit()
 
     return new_history
+  
+  def create_new_chat(self, history_id: str, is_user: bool, content: str, db: Session) -> Chat:
+
+    # exist_history = self.get_history_by_id()
+    chat = Chat(
+      history_id=history_id,
+      is_user_chat=is_user,
+      chat_content=content,
+    )
+
+    db.add(chat)
+    db.commit()
+    return chat

@@ -3,6 +3,7 @@ from sqlalchemy.orm import Session
 from google import genai
 from app.core.setting import settings
 from app.crud.chatbox import ChatboxRepository
+from app.models.chatbox import  ChatHistory, Chat
 
 class ChatboxService():
 
@@ -34,15 +35,19 @@ class ChatboxService():
       print(e)
       raise e
   
-  def create_chat_history(self, user_id: str, chat_title: str, db: Session):
+  def create_chat_history(self, user_id: str, chat_title: str, db: Session) -> ChatHistory:
 
     new_history = self.chatbox_repository.create_chat_history(user_id, chat_title, db)
     return new_history
 
-  def get_history_by_id(self, history_id: str, user_id: str, db: Session):
+  def get_history_by_id(self, history_id: str, user_id: str, db: Session) -> ChatHistory | None:
     history = self.chatbox_repository.get_history_by_id(history_id, user_id, db)
 
     if not history:
       return None
     
     return history
+  
+  def create_new_chat(self, history_id: str, is_user: bool, chat_content: str, db: Session) -> Chat:
+
+    self.chatbox_repository.create_new_chat(history_id, is_user=is_user, content=chat_content, db=db)
